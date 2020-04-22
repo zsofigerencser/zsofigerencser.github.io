@@ -30,7 +30,6 @@ header {
 main {
   font-family: 'Josefin Sans', sans-serif;
   color: #222;
-  border: solid;
   justify-content: flex-center;
   margin: 46px 260px;
   line-height: 1.5;
