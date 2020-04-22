@@ -33,6 +33,7 @@ main {
   justify-content: flex-center;
   margin: 46px 260px;
   line-height: 1.5;
+  border: 0;
 }
 section {
   padding: 0 1%;
