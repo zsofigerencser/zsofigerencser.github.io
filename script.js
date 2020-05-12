@@ -67,20 +67,49 @@ let loadPhoto = (photoNumber) => {
     $('#photo').attr('src', imagesData[currentPhoto].photo);
     $('#photo-title').text(imagesData[currentPhoto].title);
     $('#photo-description').text(imagesData[currentPhoto].description);
-}
+};
 
-loadPhoto(currentPhoto)
+loadPhoto(currentPhoto);
+
+imagesData.forEach ((item, index) => {
+    $('.thumbnail-container').append(`<div class="thumbnail" id="thumb-${index}" data-index="${index}"></div>`);
+    $(`#thumb-${index}`).append(`<img class="thumb-image" id="image-${index}" data-index="${index}"></img>`);
+    $(`#image-${index}`).attr('src', imagesData[index].thumbnail);
+    
+    $(`#thumb-${currentPhoto}`).css('box-shadow', '0px 7px 17px 0px #2D2D2D');
+
+    let clickShadow = () => {
+        $(`#thumb-${index}`).css('box-shadow', '0px 7px 17px 0px #2D2D2D')
+    };
+    
+    $(`#thumb-${index}`).on('click', clickShadow);    
+
+    $('.thumbnail').click ((event) => {
+            let indexClicked =  
+        $(event.target).attr('data-index');
+   
+        currentPhoto = indexClicked;
+        loadPhoto(currentPhoto);
+        
+        $(`#thumb-${currentPhoto}`).siblings().css(
+                'box-shadow', '0px 7px 5px -5px #2D2D2D')
+    });
+});
 
 $('#arrow-next').click(() => {
     if (currentPhoto < 7) {
     currentPhoto++ };
     loadPhoto(currentPhoto);
-})
+    $(`#thumb-${currentPhoto}`).css('box-shadow', '0px 7px 17px 0px #2D2D2D');
+    $(`#thumb-${currentPhoto}`).siblings().css('box-shadow', '0px 7px 5px -5px #2D2D2D');
+});
 $('#arrow-previous').click(() => {
     if (currentPhoto > 0) {
     currentPhoto-- };
     loadPhoto(currentPhoto);
-})
+    $(`#thumb-${currentPhoto}`).css('box-shadow', '0px 7px 17px 0px #2D2D2D');
+    $(`#thumb-${currentPhoto}`).siblings().css('box-shadow', '0px 7px 5px -5px #2D2D2D');
+});
 
 $('#arrow-next').mouseenter(() => {
     $('#next').css("transform", "scale(1.3) rotate(0.5turn)");
@@ -89,7 +118,7 @@ $('#arrow-next').mouseenter(() => {
 $ ('#arrow-next').mouseleave(() => {
     $('#next').css("transform", "scale(1.0) rotate(0.5turn)");
     $('#next').css("opacity", "1");
-})
+});
 
 $('#arrow-previous').mouseenter(() => {
     $('#previous').css("transform", "scale(1.3)");
@@ -99,23 +128,3 @@ $('#arrow-previous').mouseleave(() => {
     $('#previous').css("transform", "scale(1.0)");
     $('#previous').css("opacity", "1");
 });
-
-
-
-imagesData.forEach ((item, index) => {
-    $('.thumbnail-container').append(`<div class="thumbnail" id="thumb-${index}" data-index="${index}"></div>`);
-    $(`#thumb-${index}`).append(`<img class="thumb-image" id="image-${index}" data-index="${index}"></img>`);
-    $(`#image-${index}`).attr('src', imagesData[index].thumbnail);
-   
-    $('.thumbnail').click ((event) => {
-        let indexClicked =  
-    $(event.target).attr('data-index');
-        /*let numberIndex = parseInt(indexClicked);*/
-    currentPhoto = indexClicked;
-    loadPhoto(currentPhoto);
-    }); 
-
-});
-
-
-
